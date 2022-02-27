@@ -5,15 +5,12 @@ const searchBoxInput = document.getElementById('search-box')
 
 const searchPlayer = () =>{
    const getValue = searchBoxInput.value
-   
-   if(getValue === ''){
-    const h3 = document.createElement('h3')
-    h3.classList.add('text-danger')
-    h3.innerText = 'Opps!! Search result is not found'
-    getErr.appendChild(h3)
+
+   if(getValue === '' || isNaN(getValue) == false){
+    getErr.innerText = 'Opps! No values match, try again'
     playerInfo.innerText = ''
     getInfoId.innerText = ''
-
+   
    }else{
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${getValue}`
 
@@ -24,6 +21,7 @@ const searchPlayer = () =>{
     searchBoxInput.value = ''
     playerInfo.innerText = ''
     getInfoId.innerText = ''
+    getErr.innerText = ''
    }
  
 
