@@ -8,8 +8,9 @@ const searchPlayer = () =>{
 
    if(getValue === '' || isNaN(getValue) == false){
     getErr.innerText = 'Opps! No values match, try again'
-    playerInfo.innerText = ''
+    searchBoxInput.value = ''
     getInfoId.innerText = ''
+    playerInfo.innerText = ''
    
    }else{
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${getValue}`
@@ -45,14 +46,14 @@ const displayPlayers = (players) =>{
             const div = document.createElement('div')
             div.classList.add('col-lg-6')
             div.innerHTML = `
-                    <div class="card">
+                    <div id="deleteInfo" class="card">
                     <img src="${player.strThumb}" class="card-img-top" alt="players Images">
                     <div class="card-body">
                     <h5 class="card-title">${player.strPlayer}</h5>
                     <p class="card-text"></p>
     
                     <a href="#" onclick="details('${player.idPlayer}')" class="btn btn-warning">Details</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="#" onclick="deletePlayer('${player.idPlayer}')" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             `
@@ -81,7 +82,7 @@ const displayDetails = (info) => {
 
     if(info.strGender == 'Male'){
         const div = document.createElement('div')
-        div.innerHTML = `<img src="images/m.jpg" class="w-50" alt="images">`
+        div.innerHTML = `<div class="card p-2"><img src="images/m.jpg" class="w-50" alt="images"></div>`
         getInfoId.appendChild(div)
     }
     else{
@@ -92,7 +93,7 @@ const displayDetails = (info) => {
 
     const div = document.createElement('div')
     div.innerHTML = `
-        <div class="card text-center p-5">
+        <div  class="card text-center p-5">
             <img src="${info.strThumb}"  alt="">
             <h1>Name:${info.strPlayer} </h1>
             <h3>Nationality:${info.strNationality} </h3>
@@ -104,5 +105,25 @@ const displayDetails = (info) => {
     `
     getInfoId.appendChild(div)
 
+}
 
+const deletePlayer = (id) => {
+    console.log(id)
+    const url = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${id}`
+
+    console.log(url)
+    fetch(url)
+    .then(res => res.json())
+    .then(data => deletePlayerInfo(data.players))
+
+    getInfoId.innerText = ''
+
+}
+
+const deletePlayerInfo = (deleteInfo) =>{
+        console.log(deleteInfo.idPlayer)
+    const deletePlayerDiv = document.getElementById('deleteInfo')
+    console.log(deletePlayerDiv)
+    deletePlayerDiv.remove()
+    
 }
