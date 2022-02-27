@@ -76,30 +76,21 @@ const details = (id) => {
 
     getInfoId.innerText = ''
 }
-const displayDetails = (info) =>{
-    const div = document.createElement('div')
-    
+
+const displayDetails = (info) => {
+
     if(info.strGender == 'Male'){
-        const p = document.createElement('p')
-        p.innerHTML = `
-            <div class="p-3">
-            <img src="images/m.jpg" class="w-50" alt="images">
-            </div>
-           
-        `
-        getInfoId.appendChild(p)
+        const div = document.createElement('div')
+        div.innerHTML = `<img src="images/m.jpg" class="w-50" alt="images">`
+        getInfoId.appendChild(div)
     }
     else{
-        const p = document.createElement('p')
-        p.innerHTML = `
-       
-        <img src="images/w.jpg" class="w-50 align-center " alt="images">
-    
-        `
-      
-        getInfoId.appendChild(p)
+        const div = document.createElement('div')
+        div.innerHTML = `<img src="images/w.jpg" class="w-50 align-center " alt="images">`
+        getInfoId.appendChild(div)
     }
 
+    const div = document.createElement('div')
     div.innerHTML = `
         <div class="card text-center p-5">
             <img src="${info.strThumb}"  alt="">
